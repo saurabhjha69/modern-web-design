@@ -438,6 +438,61 @@ hr {
     .csr-section .partners {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
+
+    .image-collage-section {
+        height: 150vh;
+        display: flex;;
+    }
+
+    .image-collage-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        max-width: 80vw;
+        margin:auto;
+
+        .upper-left-img {
+            aspect-ratio: 12/9;
+            height: 250px;
+            border-radius: 1rem;
+            overflow: hidden;
+            transform: translate(80px,-40px) rotateZ(-15deg);
+            z-index: -1;
+            box-shadow: 0px 0px 40px gray;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .middle-centered-img {
+            aspect-ratio: 1.98/2;
+            border-radius: 1rem;
+            height: 500px;
+            overflow: hidden;
+            place-self: center;
+            box-shadow: 0px 0px 40px gray;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .lower-right-img {
+            border-radius: 1rem;
+            height: 200px;
+            overflow: hidden;
+            transform: translate(-100px,360px) rotateZ(15deg);
+            box-shadow: 0px 0px 40px gray;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
 }
 
 
