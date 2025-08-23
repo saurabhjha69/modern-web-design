@@ -440,8 +440,59 @@ hr {
     }
 
     .image-collage-section {
-        height: 150vh;
-        display: flex;;
+        min-height: 150vh;
+        padding-top: 10rem ;
+        display: flex;
+        flex-direction: column;
+
+        .expriences {
+            margin: auto;
+            text-align: center;
+            display: grid;
+            gap: 2.5rem;
+            place-items: center;
+            span {
+                font-size: 0.8rem;
+                line-height: 0.70rem;
+
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border-radius: 2rem;
+                background-color: var(--primary-400);
+                padding: 0.7rem;
+            }
+
+            p {
+                font-size: 3rem;
+                line-height: 3.7rem;
+                text-transform: capitalize;
+                width: 40vw;
+            }
+
+            a {
+                padding: 0.4rem 1.45rem 0.4rem 0.4rem;
+                font-size: 1rem;
+                line-height: 1.25rem;
+                font-weight: 400;
+                text-decoration: none;
+                text-transform: uppercase;
+                background-color: var(--primary-400);
+                color: var(--secondary-700);
+                border-radius: 2rem;
+                place-self: start;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                letter-spacing: 0.1rem;
+                margin-inline: auto;
+                .animated-arrow {
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    border-radius: 50%;
+                    background-color: white;
+                }
+            }
+        }
     }
 
     .image-collage-wrapper {
@@ -507,5 +558,295 @@ hr {
         position: sticky;
         bottom: 0;
         z-index: -1;
+    }
+}
+
+.objectives {
+    display: grid;
+    padding: 8rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 2rem;
+    grid-template-areas: 
+    "a . b c"
+    ". d . e";
+
+    .objective {
+        padding: 2rem;
+        border-radius: 1rem;
+        background-color: var(--primary-400);
+
+        &:hover {
+            transform: rotate3d(0,0,0);
+        }
+        
+        .icon {
+            margin-bottom: 6rem;
+            /* background-color: white; */
+
+            img {
+                filter:brightness(0%);
+                height: 50px;
+            }
+        }
+        .content {
+
+            .heading {
+                display: block;
+                font-size: 2rem;
+                font-weight: 500;
+                margin-bottom: 1rem;
+                text-transform: uppercase;
+            }
+            p {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: gray;
+            }
+        }
+
+        &:nth-of-type(1) {
+            grid-area: a;
+        }
+        &:nth-of-type(2) {
+            grid-area: b;
+        }
+        &:nth-of-type(3) {
+            grid-area: c;
+        }
+        &:nth-of-type(4) {
+            grid-area: d;
+        }
+        &:nth-of-type(5) {
+            grid-area: e;
+        }
+    }
+}
+
+.testimonials {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    display: flex;
+    gap: 3rem;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 80vw;
+    margin-inline: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .testimonial-group {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 3rem;
+        
+    }
+
+    .testimonial {
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+        position: relative;
+        padding: 3.5vw;
+        background-color: var(--primary-400);
+        border-radius: 1rem;
+
+        .client-profile-img {
+            position: absolute;
+            left: 3.5vw;
+            top: -2.25vw;
+
+            img{
+                height: 6vw;
+                width: 6vw;
+                border-radius: 50%;
+
+            }
+        }
+        .ratings {
+            margin-top: 2.5vw;
+
+            img {
+                display: inline-block;
+                height: 1vw;
+            }
+        }
+        
+        .client-info {
+            span {
+                display: block;
+                text-transform: uppercase;
+                &:last-of-type {
+                    color: rgb(55, 55, 55);
+                    font-size: 0.8rem;
+                    margin-bottom: 1vw;
+                }
+            }
+            p {
+                font-size: 1.1vw;
+                letter-spacing: 0.07vw;
+                color: rgb(55, 55, 55);
+            }
+
+        }
+        .quotes-icon {
+            img {
+                height: 5vw;
+            }
+        }
+    }
+}
+
+.navigation-dots {
+    display: grid;
+    place-content: center;
+    ul {
+        list-style: none;
+
+
+        li {
+            display: inline-block;
+            button {
+                outline: none;
+                border: none;
+                background-color: #1d202555;
+                padding: 0.5rem;
+                border-radius: 50%;
+                cursor: pointer;
+
+                &.active {
+                    background-color: #1D2025;
+                }
+                &:focus {
+                    border: 1px solid rgb(0, 242, 255);
+                    box-shadow: 0px 0px 5px rgb(0, 242, 255);
+                }
+            }
+        }
+    }
+}
+
+.what-we-offer {
+    width: 80vw;
+    margin-inline: auto;
+    display: grid;
+    gap: 2rem;
+    padding-block: 8vw;
+    article {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10vw;
+        padding-bottom: 3vw;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.242);
+
+        legend {
+            font-size: 2vw;
+            text-transform: uppercase;
+            font-weight: 500;
+
+            display: flex;
+            gap: 1.5vw;
+            align-items: center;
+        }
+        p {
+            font-size: 1.1vw;
+            letter-spacing: 0.07vw;
+            color: darkslategray;
+        }
+    }
+}
+
+.our-team {
+    width: 80vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4vw;
+    margin-inline: auto;
+    margin-bottom: 5vw;
+    .member {
+        /* width: 50%; */
+        .banner {
+            width: 100%;
+            height: 58vh;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0px 0px 3vw gray;
+            margin-bottom: 2.45vw;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                object-position: 0 -12vh;
+                transition: transform 0.5s ease-in-out;
+                
+                &:hover {
+                    transform: scale(1.04);
+                }
+            }
+        }
+
+        .caption {
+            h4 {
+                font-size: 2.2vw;
+                line-height: 3vw;
+                font-weight: 500;
+            }
+            p {
+                font-size: 1.1vw;
+                letter-spacing: 0.07vw;
+                color: darkslategray;
+            }
+        }
+    }
+}
+
+
+.footer-wrapper {
+    padding-inline: 8rem;
+    padding-block: 4rem;
+    background-color: var(--primary-400);
+    .contact-and-links{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 5vw;
+
+       .contact {
+        h4 {
+            font-size: 2vw;
+            line-height: 2vw;
+            margin-bottom: 2vw;
+        }
+         p {
+            text-align: start;
+         }
+       }
+       .links {
+        margin-left: auto;
+        ul {
+            list-style: none;
+            
+        }
+
+        li a {
+            text-decoration: none;
+            color: #1D2025;
+            font-size: 1.35vw;
+            font-weight: 500;
+        }
+       }
+    }
+
+    h1 {
+        font-size:24vw;
+        line-height: 24vw;
+    }
+    p {
+        text-align: end;
     }
 }
