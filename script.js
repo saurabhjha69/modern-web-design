@@ -4,7 +4,7 @@ let isBlurryActive = false
 let bluryImgHeight;
 let bluryImgSectionLimit;
 let fullSectionHeight;
-let observer = new IntersectionObserver((entries) => {
+let topObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if(entry.isIntersecting){
             bluryImgHeight = underLayingImage.getBoundingClientRect().height
@@ -14,33 +14,33 @@ let observer = new IntersectionObserver((entries) => {
             console.log("Blurry Image Section Limit ",bluryImgSectionLimit)
             console.log("Full Section Limit ",fullSectionHeight)
             isBlurryActive = true
-            window.addEventListener('scroll',()=> {
-                let scrollTop = document.documentElement.scrollTop
-                if( scrollTop >= bluryImgSectionLimit - bluryImgHeight && scrollTop <= fullSectionHeight) {
-                    console.log("Blurry Image touched!")
-                    let bluryImage = document.querySelector('.image-transition .blury-image')
-                    // console.log("Client Rect",bluryImage.getBoundingClientRect())
-                    let dividend = bluryImgSectionLimit - scrollTop 
-                    let divisor = bluryImgHeight
-                    let blurValue =blurLimit -((dividend / divisor ) * blurLimit )
-                    if(scrollTop > bluryImgSectionLimit) {
+            // window.addEventListener('scroll',()=> {
+            //     let scrollTop = document.documentElement.scrollTop
+            //     if( scrollTop >= bluryImgSectionLimit - bluryImgHeight && scrollTop <= fullSectionHeight) {
+            //         console.log("Blurry Image touched!")
+            //         let bluryImage = document.querySelector('.image-transition .blury-image')
+            //         // console.log("Client Rect",bluryImage.getBoundingClientRect())
+            //         let dividend = bluryImgSectionLimit - scrollTop 
+            //         let divisor = bluryImgHeight
+            //         let blurValue =blurLimit -((dividend / divisor ) * blurLimit )
+            //         if(scrollTop > bluryImgSectionLimit) {
                         
-                        dividend = fullSectionHeight - scrollTop 
-                        divisor = fullSectionHeight - bluryImgSectionLimit
-                        blurValue =((dividend / divisor ) * blurLimit )
-                    } 
-                    bluryImage.style.filter = `blur(${blurValue}px)`
-                }
+            //             dividend = fullSectionHeight - scrollTop 
+            //             divisor = fullSectionHeight - bluryImgSectionLimit
+            //             blurValue =((dividend / divisor ) * blurLimit )
+            //         } 
+            //         bluryImage.style.filter = `blur(${blurValue}px)`
+            //     }
 
-            })
+            // })
 
         }
         else {
             isBlurryActive = false
         }
     })
-},{threshold: 0,rootMargin: "0px 0px -100% 0px"})
-observer.observe(underLayingImage)
+},{threshold: 1})
+topObserver.observe(underLayingImage)
 
 
 
@@ -53,21 +53,50 @@ window.addEventListener('scroll',(e)=> {
         let blurValue = blurLimit- ((scrollTop / 650 ) * blurLimit )// current blur value is 20px
         heroBlurMask.style.backdropFilter = `blur(${blurValue}px)`
     }
-    else if( scrollTop >= bluryImgSectionLimit - bluryImgHeight && scrollTop <= fullSectionHeight && isBlurryActive) {
-                    console.log("Blurry Image touched!")
+    if( scrollTop >= bluryImgSectionLimit - bluryImgHeight && scrollTop <= fullSectionHeight && isBlurryActive) {
+                    // console.log("Blurry Image touched!")
+                    console.log("Scroll Downwards")
                     let bluryImage = document.querySelector('.image-transition .blury-image')
                     // console.log("Client Rect",bluryImage.getBoundingClientRect())
-                    let dividend = bluryImgSectionLimit - scrollTop 
-                    let divisor = bluryImgHeight
-                    let blurValue =blurLimit -((dividend / divisor ) * blurLimit )
-                    if(scrollTop > bluryImgSectionLimit) {
-                        
-                        dividend = fullSectionHeight - scrollTop 
-                        divisor = fullSectionHeight - bluryImgSectionLimit
-                        blurValue =((dividend / divisor ) * blurLimit )
-                    } 
-                    bluryImage.style.filter = `blur(${blurValue}px)`
+                    let blurValue;
+        if (scrollTop <= bluryImgSectionLimit) {
+            // ENTERING (scrolling down OR back up into section)
+            let dividend = bluryImgSectionLimit - scrollTop;
+            let divisor = bluryImgHeight;
+            blurValue =blurLimit -((dividend / divisor) * blurLimit);
+            // console.log("Entering")
+        } else {
+            // EXITING (scrolling further down OR back up)
+            let dividend = fullSectionHeight - scrollTop;
+            let divisor = fullSectionHeight - bluryImgSectionLimit;
+            blurValue = ((dividend / divisor) * blurLimit);
+            // console.log("Exiting")
+        }
+
+        // Clamp between 0 and blurLimit to avoid weird negatives
+        blurValue = Math.max(0, Math.min(blurLimit, blurValue));
+
+        bluryImage.style.filter = `blur(${blurValue}px)`;
                 }
+    else if ( scrollTop<= bluryImgSectionLimit && scrollTop >= bluryImgSectionLimit - (3*bluryImgHeight) && isBlurryActive) {
+        console.log("Scroll Upwards")
+        let bluryImage = document.querySelector('.image-transition .blury-image')
+        fullSectionHeight = bluryImgSectionLimit - (3*bluryImgHeight)
+        let blurValue;
+        if(scrollTop <= bluryImgSectionLimit && scrollTop > (bluryImgSectionLimit - bluryImgHeight)){
+            let dividend = bluryImgSectionLimit - scrollTop 
+            let divisor = bluryImgHeight 
+
+            blurValue =blurLimit -((dividend / divisor ) * blurLimit ) 
+        }
+        else{ 
+            console.log("here")
+            dividend =  scrollTop - fullSectionHeight 
+            divisor = bluryImgSectionLimit - bluryImgHeight
+            blurValue =((dividend / divisor ) * blurLimit ) 
+        } 
+        bluryImage.style.filter = `blur(${blurValue}px)`
+    }
 })
 
 const testimonialCarouselContainer = document.querySelector('.testimonials')
