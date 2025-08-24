@@ -43,14 +43,19 @@ let topObserver = new IntersectionObserver((entries) => {
 topObserver.observe(underLayingImage)
 
 
-
-
+let mouseFollowerDot = document.querySelector('.mouse-follower-dot')
+let prevScrollTop = 0
 window.addEventListener('scroll',(e)=> {
-    // console.log(document.documentElement.scrollTop)
+    let mouseFollowerRect = mouseFollowerDot.getBoundingClientRect()
     let scrollTop = document.documentElement.scrollTop
-    if(scrollTop <= 650) {
-        let heroBlurMask = document.querySelector('.para-section .blur-mask')
-        let blurValue = blurLimit- ((scrollTop / 650 ) * blurLimit )// current blur value is 20px
+    console.log(mouseFollowerRect)
+    console.log(`Scroll Top is ${scrollTop}\nPrev Scroll Top Y is ${prevScrollTop}`) 
+    prevY+= scrollTop - prevScrollTop
+    mouseFollowerDot.style.transform = `translate(${prevX}px,${prevY}px)`
+    prevScrollTop = scrollTop
+    let heroBlurMask = document.querySelector('.para-section .blur-mask')
+    if(scrollTop <= heroBlurMask.getBoundingClientRect().height) {
+        let blurValue = blurLimit- ((scrollTop / heroBlurMask.getBoundingClientRect().height ) * blurLimit )// current blur value is 20px
         heroBlurMask.style.backdropFilter = `blur(${blurValue}px)`
     }
     if( scrollTop >= bluryImgSectionLimit - bluryImgHeight && scrollTop <= fullSectionHeight && isBlurryActive) {
@@ -124,4 +129,21 @@ testimonialCarouselNavDots.forEach((dot,index) => {
         }
     })
     // dot.classList.toggle('active',)
+})
+
+let prevX
+let prevY
+document.addEventListener('mouseenter',()=> {
+    document.addEventListener('mousemove',(e)=> {
+        prevX = e.pageX - 10
+        prevY = e.pageY - 10
+        mouseFollowerDot.style.transform = `translate(${prevX}px,${prevY}px)`
+    })
+})
+
+document.querySelectorAll('.animated-arrow').forEach((arrow)=> {
+    arrow.parentElement.addEventListener('mouseenter',()=> {
+        arrow.querySelector('img').classList.toggle('animate')
+    })
+    
 })

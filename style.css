@@ -244,11 +244,45 @@ header .nav-wrapper {
         gap: 1rem;
 
         .animated-arrow {
+            position: relative;
             height: 2.5rem;
             width: 2.5rem;
             border-radius: 50%;
             background-color: white;
+            overflow: hidden;
+
+            img {
+                position: absolute;
+                transform: translate(-50%,-50%);
+                top: 50%;
+                left: 50%;
+                height: 1rem;
+                /* background-color: black; */
+
+            }
+
+            img.animate {
+                animation: animating-arrow-up 0.5s ease-in forwards, animating-arrow-down 0.5s ease-out forwards 0.5s;
+            }
         }
+    }
+}
+
+@keyframes animating-arrow-up {
+    0% {
+        /* transform: translateY(0px); */
+    }
+    100% {
+        transform: translateY(-1000%);
+    }
+}
+
+@keyframes animating-arrow-down {
+    0% {
+        transform: translateY(1000%);
+    }
+    100% {
+        transform: translate(-50%,-50%);
     }
 }
 .fifth-section {
@@ -489,11 +523,26 @@ hr {
                 letter-spacing: 0.1rem;
                 margin-inline: auto;
                 .animated-arrow {
-                    height: 2.5rem;
-                    width: 2.5rem;
-                    border-radius: 50%;
-                    background-color: white;
-                }
+            position: relative;
+            height: 2.5rem;
+            width: 2.5rem;
+            border-radius: 50%;
+            background-color: white;
+            overflow: hidden;
+
+            img {
+                position: absolute;
+                transform: translate(-50%,-50%);
+                top: 50%;
+                left: 50%;
+                height: 1rem;
+                /* background-color: black; */
+
+            }
+
+            img.animate {
+                animation: animating-arrow-up 0.5s ease-in forwards, animating-arrow-down 0.5s ease-out forwards 0.5s;
+            }
             }
         }
     }
@@ -864,4 +913,16 @@ hr {
     p {
         text-align: end;
     }
+}
+
+.mouse-follower-dot {
+    position: absolute;
+    /* top: 0; */
+    /* left: 0; */
+    height: 10px;
+    width: 10px;
+    background-color: #1D2025;
+    border-radius: 50%;
+    z-index: 999999999;
+    transition: transform 0.4s linear;
 }
